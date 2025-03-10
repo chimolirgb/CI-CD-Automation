@@ -3,9 +3,9 @@
 ## **Overview**
 This project implements a **CI/CD pipeline** using **GitHub Actions** to automate the deployment and management of Terraform infrastructure on **Google Cloud Platform (GCP)**. The workflow ensures:
 
-✅ **Linting and validation** of Terraform code before deployment.  
-✅ **Automatic infrastructure deployment** upon a commit to `main`.  
-✅ **Automatic resource teardown** when a branch (except `main`) is deleted.  
+ **Linting and validation** of Terraform code before deployment.  
+ **Automatic infrastructure deployment** upon a commit to `main`.  
+ **Automatic resource teardown** when a branch (except `main`) is deleted.  
 
 ---
 
@@ -25,7 +25,6 @@ on:
       - main
 ```
 
----
 
 ## **Pipeline Jobs**
 
@@ -74,7 +73,7 @@ This job is triggered when a commit is pushed to the `main` branch.
      run: terraform apply -auto-approve -var="project_id=$PROJECT_ID" -var="region=$REGION"
    ```
 
----
+
 
 ### **2️⃣ Terraform Destroy Job (`destroy`)**
 This job is triggered when **a branch is deleted** (except `main`).
@@ -110,28 +109,12 @@ This job is triggered when **a branch is deleted** (except `main`).
      run: terraform destroy -auto-approve -var="project_id=$PROJECT_ID" -var="region=$REGION"
    ```
 
----
 
-## **Pipeline Workflow Summary**
-| Event | Action |
-|--------|---------|
-| `push` to `main` | ✅ **Deploy infrastructure** using Terraform |
-| `delete` branch (except `main`) | 🛑 **Destroy infrastructure** to save costs |
-
----
 
 ## **Why This Approach?**
-✅ **Automates Infrastructure Deployment** – Eliminates manual Terraform execution.  
-✅ **Ensures Code Quality** – Uses Terraform validation before deployment.  
-✅ **Cost Optimization** – Deletes unused resources when branches are removed.  
-✅ **Security Best Practices** – Uses GitHub Secrets to store GCP credentials safely.  
+ **Automates Infrastructure Deployment** – Eliminates manual Terraform execution.  
+ **Ensures Code Quality** – Uses Terraform validation before deployment.  
+ **Cost Optimization** – Deletes unused resources when branches are removed.  
+ **Security Best Practices** – Uses GitHub Secrets to store GCP credentials safely.  
 
----
-
-## **Next Steps**
-- Push a commit to `main` and verify the infrastructure is deployed.
-- Delete a feature branch and confirm that resources are destroyed.
-- Monitor the **GitHub Actions tab** for pipeline execution status.
-
-🚀 **Congratulations! You now have a fully automated CI/CD pipeline for Terraform on GCP using GitHub Actions!** 🎯
 
